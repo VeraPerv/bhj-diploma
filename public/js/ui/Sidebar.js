@@ -1,3 +1,4 @@
+
 /**
  * Класс Sidebar отвечает за работу боковой колонки:
  * кнопки скрытия/показа колонки в мобильной версии сайта
@@ -18,7 +19,17 @@ class Sidebar {
    * при нажатии на кнопку .sidebar-toggle
    * */
   static initToggleButton() {
-
+    const burgerButton = document.querySelector('.sidebar-toggle');
+    const sideBarMini = document.querySelector('.sidebar-mini');
+    burgerButton.addEventListener('click', (event) => {
+      sideBarMini.classList.toggle('sidebar-open','sidebar-collapse');
+    });
+    /* const sideBarMini = document.querySelector('.sidebar-mini');
+const burgerButton = document.querySelector('.sidebar-toggle');
+burgerButton.addEventListener('click', () => {
+sideBarMini.classList.toggle('sidebar-open');
+sideBarMini.classList.toggle('sidebar-collapse');
+});*/
   }
 
   /**
@@ -29,6 +40,31 @@ class Sidebar {
    * выходу устанавливает App.setState( 'init' )
    * */
   static initAuthLinks() {
+    const registerBtn = document.querySelector('.menu-item_register');
+    registerBtn.addEventListener('click', (event) => {
+      //debugger;
+      event.preventDefault();
+      App.getModal('register').open(); //  почему в первом случае с App, а во втором без Modal вызов; почему не открывает по modal-register???
+    });
+    const loginBtn = document.querySelector('.menu-item_login');
+    loginBtn.addEventListener('click', (event) => {
+      event.preventDefault();
+      App.getModal('login').open();
+    });
 
+
+    // НЕ ВИЖУ КНОПКИ ВЫЙТИ!!!???вслепую
+    //ПРОВЕРИТЬ, ПОСМОТРЕТЬ КАК РАБОТАЕТ
+    const logoutBtn = document.querySelector('.menu-item_logout');
+    logoutBtn.addEventListener('click', (event) => {
+      // event.preventDefault();//нужен нет?
+      User.logout(callback); //из папки USER static logout(callback) 
+      function callback(response) {
+        if (response.success) {
+          App.setState('init');
+        }
+      }
+
+    });
   }
 }

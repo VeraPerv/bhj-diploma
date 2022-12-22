@@ -166,7 +166,7 @@ console.log( Entity.URL ); // ''
 ### list
 
 Метод *list* принимает 2 аргумента:
-
+//извне???
 ```javascript
 const data = {
   mail: 'ivan@biz.pro',
@@ -277,7 +277,7 @@ console.log( localStorage.user ); // строка "{"id":12,"name":"Vlad"}
 ```
 ### User.current
 
-Возвращает объект текущего авторизованного пользователя. 
+Возвращает объект текущего авторизованного пользователя. ///возвращает - это return???
 Если его нет, возвращает *undefined*.
 
 ```javascript

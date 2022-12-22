@@ -114,3 +114,15 @@ css-свойство *display*.
 и оказывать нежелательный эффект перехода на другую страницу.
 
 </details>
+
+onClose(e) { // ???
+    //e.preventDefault();
+    let modalForClose = e.target.closest('.modal');
+    modalForClose.close();
+      /*let ModalForClose = e.target.closest('.modal');
+    const modalForm = new Modal(ModalForClose);
+    modalForm.close();*/
+  }
+   /*let modalForClose = e.target.closest('.modal');
+   const modalForm = new Modal(modalForClose);
+   modalForm.close(); */

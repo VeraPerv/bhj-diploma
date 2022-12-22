@@ -11,7 +11,7 @@ class User {
   static URL = '/user';
 
   static setCurrent(user) {
-    localStorage.user = JSON.stringify(user); //сохр в хранилище
+    localStorage.setItem('user',JSON.stringify(user)); //сохр в хранилище
     //localStorage.id = JSON.stringify(id); //??/ нужен тут 
     //объект { id: 12, name: 'Vlad' } <--id автоматически в объекте user?
   }
@@ -30,7 +30,7 @@ class User {
    * ВОЗВРАЩАЕТ - значит return?
    * */
   static current() {
-    return localStorage.user;
+    return localStorage.getItem('user');
     /*if ('user') {
       return JSON.parse(localStorage.getItem('user')); //без if? он итак вернет undefined, если иф не будет
     }*/

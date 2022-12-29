@@ -13,49 +13,42 @@ class AsyncForm {
    * через registerEvents()
    * */
   constructor(element) {
-    if (element) {
+    /*if (element) {
       this.element = element;
       this.registerEvents();
     } else {
       throw new Error('Ошибка! Элемент не существует!');
     }
+  }*/
+    if (JSON.stringify(element) === '{}') {
+      throw new Error("Нет переданного элемента");
+    } else {
+      this.element = element;
+    }
+    this.registerEvents();
   }
 
   /**
    * Необходимо запретить отправку формы и в момент отправки
    * вызывает метод submit()
    * */
-
-  registerEvents(event) {
-    if (event) {
-      event.preventDefault();
-      this.element.addEventListener('submit', () => {
+  registerEvents() {
+    this.element.addEventListener('submit', (event) => {
+      if (this.element.checkValidity()) {
+        console.log('Данные полностью загружены');
+        event.preventDefault();
         this.submit();
-        console.log('регистер ивент из асинкформ');
-      });
-      //можно просто element? не this.element?
-    }
-    //this.addEventListener('submit',)
+      }
+
+    });
+
   }
-  /**
-   * Преобразует данные формы в объект вида
-   * {
-   *  'название поля формы 1': 'значение поля формы 1',
-   *  'название поля формы 2': 'значение поля формы 2'
-   * }
-   * */
+
   getData() {
-    const formData = new FormData(this.element);
-    const entries = formData.entries();
-    let data = {};
-    for (let item of entries) {
-      const key = item[0];
-      const value = item[1];
-      data[key] = value; ///
-      console.log( data );
-    }
-    return data;
+    return new FormData(this.element);
   }
+
+
   onSubmit(options) {
 
   }

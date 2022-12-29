@@ -27,6 +27,7 @@
 
 ```javascript
 // здесь перечислены все возможные параметры для функции
+//ЭТИ ПАРАМЕТРЫ НЕ ПРОПИСЫВАЮТСЯ В CREATErEQUEST, НО ПРИХОДЯТ ИЗ ДРУГИХ ??? (УТОЧНИТЬ КАКИХ)
   createRequest({
     url: 'https://example.com', // адрес
     data: { // произвольные данные, могут отсутствовать
@@ -138,7 +139,7 @@ xhr.responseType = 'json'; // формат, в котором необходим
   createRequest({
     url: 'https://example.com',
     method: 'GET',
-    callback: ( err, response ) => {
+    callback: ( err, response ) => { //это null в createRequest
       console.log( err ); // объект ошибки
     }
   });

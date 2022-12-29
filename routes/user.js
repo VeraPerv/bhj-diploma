@@ -1,3 +1,5 @@
+/* Что бы лучше понимать, что и при каких запросах отдаст сервер, можно глянуть сам сервер. Папка routes и дальше файл, в зависимости от того, что нужно. Там request - это запрос на сервер, а response - это то, что сервер должен отдать.*/
+
 const router = require("express").Router();
 const multer  = require('multer');
 const upload = multer();

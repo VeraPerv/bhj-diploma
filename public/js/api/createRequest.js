@@ -1,7 +1,52 @@
-const createRequest = (options = {}) => {
-   // debugger;
+//в options пришли данные из других файлов
+const createRequest = (options) => {
+    //debugger;
+    console.log(options);
     const xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
+ 
+    let url = options.url;
+    try {
+        xhr.open(options.method, url);
+        xhr.send(options.data);
+
+    } catch (error) {
+        console.log('Ошибка соединения ', error.message); //откуда err.message => Вспоминаем что такое try catch. Все что ошибка в try попадает в catch в аргумент (на скрине catch (error)). Этот error - это объект класса Error, а у этого класса есть свойство message. В try даже не обязательно геренить ошибку типа new Error. Она сама сгенериться и залетит в catch.
+       /* Точнее, чуток не так. Если функции в try могут вернуть ошибку, то свою ошибку генерить не надо, оно само сгенерится и залетит в catch. А send и open могут возвращать ошибки. Поэтому свои ошибки мы тут не генерим*/
+    }
+/* load - это уже ответ от сервера, то есть сервер обработал запрос и вернул ответ в load. Ошибки обработки запроса в load никогда не придет (она в catch)*/
+    xhr.onload = function () {
+        //debugger;
+        options.callback(null, xhr.response); //Мы открываем слушатель onload, и при получении данных отправляем их в callback вот так: options.callback(null, xhr.response);
+        console.log(xhr.response);
+    };
+
+};
+
+
+
+/* В случае, если в процессе выполнения функции возникают ошибки, вам
+необходимо передать эту ошибку в параметр *err*:
+
+```javascript
+// при ошибке
+  createRequest({
+    url: 'https://example.com',
+    method: 'GET',
+    callback: ( err, response ) => { //это null в createRequest
+      console.log( err ); // объект ошибки
+    }
+  });
+```
+*/
+
+/*ВОПРОС: почему null в callback => Потому, что ошибка сервера останется в catch. А load - это уже ответ от сервера, то есть сервер обработал запрос и вернул ответ в load. Ошибки обработки запроса в load никогда не придет (она в catch). Но может быть обработка не корректных данных - тогда в response придет success false. Но это тоже нормальный ответ от сервера, сервер обработал запрос и вернул, что данные не правильные. */
+/* в параметре options => */
+
+/*const createRequest = (options = {}) => {
+   // debugger;
+    const xhr = new XMLHttpRequest();
+  //  xhr.responseType = 'json';
     xhr.onload = function () {
 
         if (xhr.readyState === xhr.DONE && xhr.status === 200) {
@@ -45,7 +90,7 @@ const createRequest = (options = {}) => {
             callback(e);
         }
     }
-};
+};*/
 /*createRequest - общая функция и принимает колбэк из разный сущностей: регистрации, авторизации, создании/редактировании транзакций и т.д. Потому, response уйдет в тот колбэк, откуда вызвана функция createRequest. Там уже можно вывести результат response в консоль и посмотреть, что пришло в ответе. */
 /*const createRequest = (options = {}) => {
   

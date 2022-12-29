@@ -27,35 +27,49 @@ class Modal {
    * должен закрыть текущее окно
    * (с помощью метода Modal.onClose)
    * */
-  registerEvents(element) {
+  registerEvents() {
+
+    const modal = Array.from(document.querySelectorAll('button[data-dismiss="modal"]'));
+    modal.forEach((e) => {
+      e.addEventListener("click", e => {
+        this.onClose();
+      });
+
+    });
+  }
+
+  /*registerEvents(element) {
     const modalClose = this.element.querySelectorAll('[data-dismiss="modal"]');
     for (let i = 0; i < modalClose.length; i++) {
       modalClose[i].onclick = this.onClose;
     }
-  }
+  }*/
   /**
    * Срабатывает после нажатия на элементы, закрывающие окно.
    * Закрывает текущее окно (Modal.close())
    * */
   onClose(e) {
-    let ModalForClose = e.target.closest('.modal');
+    this.close(e);
+    /*let ModalForClose = e.target.closest('.modal');
     const modalForm = new Modal(ModalForClose);
-    modalForm.close();
-    }
+    modalForm.close();*/
+  }
   /**
    * Открывает окно: устанавливает CSS-свойство display
    * со значением «block»
    * */
   open() {
     this.element.style.display = 'block'; //this.element.style = 'display: block';
+    //event.preventDefault();
   }
   /**
    * Закрывает окно: удаляет CSS-свойство display
    * */
-  close() {   
-  this.element.style.display = ''; // удаляет все свойство display
+  close() {
+    this.element.style.display = ''; // удаляет все свойство display
 
   }
 }
 /* this.element.style = 'display: block'; */
-/* this.element.style = 'display: none'*/ /* дисплэй остается, но без значения внутри*/
+/* this.element.style = 'display: none'*/
+/* дисплэй остается, но без значения внутри*/
